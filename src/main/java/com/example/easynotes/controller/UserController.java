@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -22,6 +22,15 @@ public class UserController {
     //Get all hibernate method with CrudRepository
     @GetMapping("/find")
     public Iterable<User> getAllUsers(){ return userRepository.findAll(); }
+
+
+    //Get by id
+    @GetMapping("/find/{id}")
+    public Optional<User> getByUsersId(@PathVariable (value = "id") Long userid){
+
+        return userRepository.findById(userid);
+
+    }
 
    //Post
     @PostMapping("/create")
@@ -44,6 +53,7 @@ public class UserController {
         return updateuser;
     }
 
+    //Delete
     @DeleteMapping("/delete/{id}")
     public User updateUser( @PathVariable (value ="id")Long userid) {
 
